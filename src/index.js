@@ -27,27 +27,71 @@
 
 
 
+// import React from "react";
+// import ReactDOM from "react-dom/client";
+// import App from "./App";
+// import { HashRouter } from "react-router-dom";
+// import { Toaster } from "react-hot-toast";
+// import { Auth0Provider } from "@auth0/auth0-react";
+
+// // Create the root render target
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+
+// // Render the app wrapped with Auth0 and HashRouter
+// root.render(
+//   <Auth0Provider
+//     domain="dev-h53yw8m1dnygxzel.us.auth0.com"
+//     clientId="QdNlwTy7TtprZDHip1tGEwLS6aR99vTd"
+//     authorizationParams={{ redirect_uri: window.location.origin }}
+//   >
+//     <HashRouter>
+//       <App />
+//       <Toaster />
+//     </HashRouter>
+//   </Auth0Provider>
+// );
+
+
+
+
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { HashRouter } from "react-router-dom";
+import { HashRouter, useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { Auth0Provider } from "@auth0/auth0-react";
 
-// Create the root render target
+// Wrapper component to enable redirection after login
+const Auth0ProviderWithRedirectCallback = ({ children }) => {
+  const navigate = useNavigate();
+
+  const onRedirectCallback = (appState) => {
+    navigate(appState?.returnTo || "/");
+  };
+
+  return (
+    <Auth0Provider
+      domain="dev-h53yw8m1dnygxzel.us.auth0.com"
+      clientId="QdNlwTy7TtprZDHip1tGEwLS6aR99vTd"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+      onRedirectCallback={onRedirectCallback}
+    >
+      {children}
+    </Auth0Provider>
+  );
+};
+
+// Main app render with HashRouter
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// Render the app wrapped with Auth0 and HashRouter
 root.render(
-  <Auth0Provider
-    domain="dev-h53yw8m1dnygxzel.us.auth0.com"
-    clientId="NRBMesJ0Sc5nnJuRrHTDI8zON0JMqaqz"
-    authorizationParams={{ redirect_uri: window.location.origin }}
-  >
-    <HashRouter>
+  <HashRouter>
+    <Auth0ProviderWithRedirectCallback>
       <App />
       <Toaster />
-    </HashRouter>
-  </Auth0Provider>
+    </Auth0ProviderWithRedirectCallback>
+  </HashRouter>
 );
-
