@@ -41,7 +41,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Auth0Provider
     domain="dev-h53yw8m1dnygxzel.us.auth0.com"
-    clientId="NRBMesJ0Sc5nnJuRrHTDI8zON0JMqaqz"
+    clientId="QdNlwTy7TtprZDHip1tGEwLS6aR99vTd"
     authorizationParams={{ redirect_uri: window.location.origin }}
   >
     <HashRouter>
@@ -50,4 +50,5 @@ root.render(
     </HashRouter>
   </Auth0Provider>
 );
+
 
