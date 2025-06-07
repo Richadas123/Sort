@@ -189,7 +189,3 @@ export default App;
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 486cda686ee067fc6b91d8ea38bf833b87aa7157
